@@ -10,14 +10,14 @@ Write your code in this editor and press "Run" button to compile and execute it.
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
-# define max 16
-typedef struct champ {
+# define max 2
+struct champ {
     int atk;
     int def ;
     int id ;
     int car;
     int life;
-} champ;
+} ;
 int rd(){
     int soma,i ;
     soma =0;
