@@ -1,0 +1,43 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+#include <time.h>
+# define max 2
+
+
+void atk (champ *p1,champ *p2){
+    int dano = rd() + p1-> atk ;
+    printf ("\ndano causado %d ",dano  );
+    int escudo = rd() + p2-> def;
+    printf ("\ndefesa executada %d ",escudo  );
+    if (escudo>= dano){
+         printf ("\n o atacante errou "  );
+    }
+    else p2->life += escudo - dano;
+    printf ("\n vida restante do atacado %d",p2->life  );
+}
+
+
+int luta (champ *p1, champ *p2)
+
+{
+
+  printf( " \n******INICIO DA BATALHA***********");
+
+    while ( p1->life > 0 && p2->life > 0 )
+    {
+
+
+        atk (p1,p2);
+        if (p2->life <= 0)
+        {
+            return p1->id;
+        }
+        atk (p2,p1);
+        if (p1->life <= 0)
+        {
+            return p2->id;
+        }
+    }
+}
+
