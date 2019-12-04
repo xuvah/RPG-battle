@@ -1,43 +1,147 @@
+#ifndef LUTA_H_INCLUDED
+#define LUTA_H_INCLUDED
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
-# define max 2
+#include <iostream>
+#include <string>
+using namespace std;
+#define max 4
 
 
-void atk (champ *p1,champ *p2){
-    int dano = rd() + p1-> atk ;
-    printf ("\ndano causado %d ",dano  );
-    int escudo = rd() + p2-> def;
-    printf ("\ndefesa executada %d ",escudo  );
-    if (escudo>= dano){
-         printf ("\n o atacante errou "  );
-    }
-    else p2->life += escudo - dano;
-    printf ("\n vida restante do atacado %d",p2->life  );
-}
-
-
-int luta (champ *p1, champ *p2)
-
+void
+atk (Champ * p1, Champ * p2)
 {
-
-  printf( " \n******INICIO DA BATALHA***********");
-
-    while ( p1->life > 0 && p2->life > 0 )
+  int dano = rd () + p1->atk;
+  int escudo = rd () + p2->def;
+  cout<</*"Voce causou "*/dano<<" de dano...Defesa executada "<<escudo<<endl;
+  if (escudo >= dano)
     {
-
-
-        atk (p1,p2);
-        if (p2->life <= 0)
-        {
-            return p1->id;
-        }
-        atk (p2,p1);
-        if (p1->life <= 0)
-        {
-            return p2->id;
-        }
+      cout<< "Esquiva!!"<<endl;
     }
+  else
+    p2->life += escudo - dano;
+       
 }
 
+
+void
+ult (Champ * p1, Champ * p2)
+{
+    if(p1->getclasse()=="Lutador"){
+        if (p1->mp<=0){
+        cout<< "mana insuficiente!!!!!";
+        }else{
+            cout<< "ult 1";
+            p1->mp-=100;
+        }
+      }
+      
+      
+      else if(p1->getclasse()=="Mago"){
+          if (p1->mp<=0){
+        cout<< "mana insuficiente!!!!!";
+        }else{
+         cout<< "ult 2";
+          p1->mp-=100;
+       }
+      }
+      
+      
+      else if(p1->getclasse()=="Tank"){
+          if (p1->mp<=0){
+        cout<< "mana insuficiente!!!!!";
+        }else{
+         cout<< "ult 3";
+          p1->mp-=100;
+       }
+      }
+      
+      
+      else {
+          if (p1->mp<=0){
+        cout<< "mana insuficiente!!!!!";
+        }else{
+         cout<< "ult 4";
+          p1->mp-=100;
+        }
+        
+    }
+    /*
+  int dano = rd () + p1->atk;
+  printf ("\ndano causado %d ", dano);
+  int escudo = rd () + p2->def;
+  printf ("\ndefesa executada %d ", escudo);
+  if (escudo >= dano)
+    {
+      printf ("\n o atacante errou ");
+    }
+  else
+    p2->life += escudo - dano;
+  printf ("\n vida restante do atacado %d", p2->life);*/
+}
+
+
+
+
+
+
+int
+luta (Champ * p1, Champ * p2)
+{
+  int act;
+  bool erro = false;
+
+  cout << "********************INICIO DA BATALHA************************" << endl;
+
+  while (p1->life > 0 && p2->life > 0)
+      {
+	cout << "Qual sera sua jogada?" << endl;
+	cout << "1 para atacar " << endl;
+	cout << "2 para especial " << endl;
+	cout << "3 para defender " << endl;
+	cin >> act;
+	do
+	  {
+	    if (act == 1)
+	      {
+	   cout<<"Voce causou ";
+		atk (p1, p2);
+		 cout<<"Vida do oponente "<<p2->life<<endl;
+			erro = false;
+	      }
+	    else if (act == 2)
+	      {
+		   ult(p1,p2);
+			erro = false;
+	      }
+	    else if (act == 3)
+	      {
+		//def(p1,p2);
+		erro = false;
+	      }
+	    else{
+	      erro = true;
+	  cout << "entrada invalida digite novamente"<<endl;
+	  cin>>act;
+	        
+	    }
+	}while (erro);
+	if (p2->life <= 0)
+	  {
+	    // return p1->id;
+	  }
+	  cout<<"Voce recebeu ";
+	atk (p2, p1);
+	cout<<"Vida restante "<<p1->life<<endl;
+	if (p1->life <= 0)
+	  {
+	    //return p2->id;
+	  }
+      }
+    }
+
+
+
+#endif
