@@ -21,10 +21,11 @@ using namespace std;
 int main ()
 {
   srand (time (NULL));
-  //int ide, camp [max], i,l;
-  int i;
-  bool erro = false;
-  Champ *player = new Champ (1);                     // inicio criaçaõ do jogador
+  string continua;
+  int i,score=0;
+  bool erro = false,vitoria;
+  do{
+  Champ *player = new Champ ();                     // inicio criaçaõ do jogador
   cout << "seus status iniciais sao:" << endl;
   cout << "ataque" << player->atk << endl;
   cout << "defesa" << player->def << endl;
@@ -58,14 +59,32 @@ int main ()
   cout << "seus pontos de mana " << player->mp << endl;
   cout << "seus pontos de vida " << player->life << endl;  // fim criaçaõ do jogador
     
-    
-  Champ *inimigo = new Champ(0);         //criaçaõ do inimigo
+    do{
+  Inimigo *inimigo = new Inimigo(score);         //criaçaõ do inimigo
   i= 1+ rand () % 4;
    inimigo->setclasse (i);
   cout << "Voce lutara contra um " << inimigo->getclasse()<< endl;
   
-  luta (player,inimigo);
-  delete player;
+ vitoria = luta (player,inimigo);
+ if (vitoria){
+     score ++;
+     cout << "continue??(y se sim)... Aperte qualquer outro botao para finalizar: "; 
+     cin>>continua;
+     }
+     else
+       { 
+         cout << score<<endl;
+         score =0 ;
+      cout << " ...continue??(y se sim)... Aperte qualquer outro botao para finalizar: "; 
+       cin>>continua;
+        }
   delete inimigo;
+    }while((continua=="y"||continua=="Y")&&score!=0);
+    if(score!=0){
+    cout <<"seu score foi "<< score<<endl;}
+    delete player;
+  }while (continua=="y"||continua=="Y");
+  
+ 
   return 0;
 }
