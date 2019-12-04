@@ -1,49 +1,71 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
 #include "cria_char.h"
 #include "luta.h"
-# define max 2
-
-int main()
-{   srand(time(NULL));
-    int ide, camp [max], i,l;
-
-    champ n [max];
-     champ *pointer =n ;
-    criachamp (n);
-   // printf(" ***********************%d*********************  ", pointer-> life  );
-
-      l=max;
-       ide=0;
-     for(i=0;i<l/2;i++){
-            printf(" \n %d", ide);
-            camp[i]  =  luta (&n[ide], &n[ide +1]);
-        printf("\n o vencedor da luta entre  %d e %d foi: %d ", ide, ide +1,camp[i]);
-
-        ide += 2;
-    }
-    l= l/2;
-
-    while (l > 1){
-ide = 0;
-     for(i=0;i<l/2;i++){
-
-         int s = camp[ide];
-
-             camp[i]  =  luta (&n[camp[ide]], &n[camp[ide +1]]);
-        printf("\n o vencedor da luta entre  %d e %d foi: %d ",s, camp [ide +1],camp[i]);
-
-        ide += 2;
-    }
-    l= l/2;
-    printf("\nlutadores restantes : %d", l);
-    }
-    printf("\n o GRANDE CAMPEÃO DO CAMPEONATO é: %d ", camp[0]);
-    return 0;
+#include <iostream>
+#include <string>
+using namespace std;
+#define max 4
 
 
-
+int main ()
+{
+  srand (time (NULL));
+  //int ide, camp [max], i,l;
+  int i;
+  bool erro = false;
+  Champ *player = new Champ (1);                     // inicio criaçaõ do jogador
+  cout << "seus status iniciais sao:" << endl;
+  cout << "ataque" << player->atk << endl;
+  cout << "defesa" << player->def << endl;
+  cout << "mana" << player->mp << endl;
+  cout << "vida" << player->life << endl;
+  cout << "Escolha a classe desejada...(leia o readme para especificacoes) "
+    << endl;
+  cout << "1=lutador" << endl << "2=mago" << endl << "3=tank" << endl <<
+    "4=curandeiro" << endl;
+  cin >> i;
+  do{
+  try
+  {
+     player->setclasse (i);
+	 erro = false;
+      }
+  
+  catch (int falha)
+  { if (falha==1){
+    cout << "Entrada invalida!Digite novamente..." <<endl;
+    cin >> i;
+        }
+        erro = true;
+  }
+        
+    }while (erro);         
+    
+  cout << "Voce e um " << player->getclasse() << " e estes sao seus status:" << endl;
+  cout << "seus pontos de ataque " << player->atk << endl;
+  cout << "seus pontos de defesa " << player->def << endl;
+  cout << "seus pontos de mana " << player->mp << endl;
+  cout << "seus pontos de vida " << player->life << endl;  // fim criaçaõ do jogador
+    
+    
+  Champ *inimigo = new Champ(0);         //criaçaõ do inimigo
+  i= 1+ rand () % 4;
+   inimigo->setclasse (i);
+  cout << "Voce lutara contra um " << inimigo->getclasse()<< endl;
+  
+  luta (player,inimigo);
+  delete player;
+  delete inimigo;
+  return 0;
 }
-
