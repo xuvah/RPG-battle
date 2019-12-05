@@ -55,7 +55,7 @@ void Champ::setclasse (int guild)
       this->atk += 5;
       this->def -= 5;
       this->mp = this->mp * 2;
-      this->life=+10;
+      this->life+=10;
       this->classe = "Mago";
     }
   else if (guild == 3)
